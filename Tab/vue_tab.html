@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="Vue tabulaire des données">
+    <title> ApexWeb </title>
+
+    <!-- Feuilles de style -->
+    <link rel="stylesheet" href="../Bootstrap/bootstrap-4.3.1-dist/css/bootstrap.css" >
+    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="vue_tab.css">
+
+    <!-- Feuilles de style pour le menu déroulant -->
+    <link rel="stylesheet" href="../Bootstrap/bootstrap-3.2.0/css/bootstrap.min.css" >
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+
+
+    <!-- Firebase required -->
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-app.js"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+
+    <!-- Configuration de l authentification -->
+    <script src="../Authentification/authConfiguration.js"></script>
+
+
+
+  </head>
+<body>
+
+<div id="ifLoggedIn">
+  <!-- Barre de navigation -->
+  <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-light bg-light">
+    <img src="../images/logoApeX.svg" alt="ApeXweb" id="img_logo"> <!-- logo -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button> <!-- Bouton qui n'apparait quand la navbar est trop petite -->
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="../Accueil/accueil.html">Accueil <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../Accueil/about.html">Le projet</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../Accueil/contact.html">Contact</a>
+        </li>
+        <div id="menuDeroulant" class="dropdown">
+          <!-- Menu Déroulant -->
+          <button class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton" type="button" name="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Menu </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="../Carto/carto_croissance.html"> Croissance de la vigne</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="../Carto/carto_contrainte.html"> Contrainte hydrique </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item"  href="../Tab/vue_tab.html"> Vue tabulaire / Export</a>
+            </div>
+        </div>
+      </ul>
+    </div>
+    <!-- Bouton deconnexion -->
+    <ul id="Deconnexion" class="nav nav-pills nav-fill my-lg-0 invisible">
+      <li class="nav-item">
+        <button id="btnLogout" class="btn btn-primary">Se déconnecter</button>
+      </li>
+    </ul>
+  </nav>
+
+<!-- Barre d'accueil de la page -->
+  <div class="container-fluid skyblue" id="head_vue_tab">
+      <div class="container h-100">
+        <div class="row h-100 align-items-center justify-content-center text-center">
+          <div class="col-lg-10 align-self-middle">
+            <h1 class="text-uppercase text-white font-weight-bold">Vue tabulaire</h1>
+            <hr class="divider my-4">
+          </div>
+        </div>
+      </div>
+  </div>
+
+<!--**************** PARTIE AFFICHAGE DE LA TABLE ********************-->
+
+<!-- Div englobante des fonctionnalités -->
+  <div id="aff_vue" class="container-fluid">
+
+    <!-- Div de choix de la parcelle -->
+    <div class="container">
+    <!--Mise en place du tableau d'information sur les parcelles -->
+    <div class="container-fluid infor" id="checkbox_parcelle">
+    </div>
+    <!-- Bouton pour afficher toutes les parcelles d'un coup -->
+    <li class="list-group-item" id="switch_all_box">
+      <p id="switch_all_txt">Afficher toutes les parcelles</p>
+      <label class="switch ">
+        <input type="checkbox" id="switch_all" class="switch_all">
+        <span class="slider round"></span>
+      </label>
+    </li>
+  </div>
+
+    <!-- Div englobant le tableau et le choix des indices à afficher -->
+    <div class="container-fluid" id ='checkbox_colonne'>
+      <div class="row">
+
+        <!-- Affichage du tablea -->
+        <div class="col-lg-9">
+
+            <div class="mx-auto" id="tableau">
+            </div>
+        </div>
+
+        <!-- Choix des indices à afficher dans le tableau -->
+        <div class="col-lg-3 tab2 ">
+          <!-- Agencement et mise en forme bootstrap -->
+          <div class="card">
+            <!-- Default panel contents --> <!-- Header -->
+            <div class="card-header">Choix des indices</div>
+
+            <!-- Liste des checkboxs -->
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                Nombre apexP
+                <label class="switch ">
+                  <input type="checkbox" id='nombre_apexP' name='checkbox_colonne' value='checkbox_colonne' class='checkbox_colonne default' checked='checked'>
+                  <span class="slider round"></span>
+                </label>
+              </li>
+              <li class="list-group-item">
+                Nombre apexR
+                <label class="switch ">
+                  <input type="checkbox" id='nombre_apexR' name='checkbox_colonne' value='checkbox_colonne' class='checkbox_colonne default' checked='checked'>
+                  <span class="slider round"></span>
+                </label>
+              </li>
+              <li class="list-group-item">
+                Nombre apexC
+                <label class="switch ">
+                  <input type="checkbox"  id='nombre_apexC' name='checkbox_colonne' value='checkbox_colonne' class='checkbox_colonne default' checked='checked'>
+                  <span class="slider round"></span>
+                </label>
+              </li>
+              <li class="list-group-item">
+                Moyenne
+                <label class="switch ">
+                  <input type="checkbox" id='moyenne' name='checkbox_colonne' value='checkbox_colonne' class='checkbox_colonne default' checked='checked'>
+                  <span class="slider round"></span>
+                </label>
+              </li>
+              <li class="list-group-item">
+                Taux apexP
+                <label class="switch ">
+                  <input type="checkbox" id='taux_apexP' name='checkbox_colonne' value='checkbox_colonne' class='checkbox_colonne default' checked='checked'>
+                  <span class="slider round"></span>
+                </label>
+              </li>
+              <li class="list-group-item">
+                Taux apexR
+                <label class="switch ">
+                  <input type="checkbox" id='taux_apexR' name='checkbox_colonne' value='checkbox_colonne' class='checkbox_colonne default' checked='checked'>
+                  <span class="slider round"></span>
+                </label>
+              </li>
+              <li class="list-group-item">
+                Taux apexC
+                <label class="switch ">
+                  <input type="checkbox" id='taux_apexC' name='checkbox_colonne' value='checkbox_colonne' class='checkbox_colonne default' checked='checked'>
+                  <span class="slider round"></span>
+                </label>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Bouton d'export -->
+  <div class="container exporter">
+    <button type="button" id="export" data-export="export" class="btn btn-dark btn-lg btn-block">Exporter la vue</button>
+  </div>
+
+  <!-- Footer -->
+  <footer id="footer" class="top-space black">
+      <!-- Footer à deux niveau -->
+  		<div class="footer1">
+        <!-- Premier niveau avec logoApex/contact/logosPartenaire  -->
+  			<div class="container-footer">
+  				<div class="row">
+            <div class="col widget">
+                <figure>
+                  <img src="../images/logoApeX.svg" alt="ApeXweb" align="center" width="200em">
+                </figure>
+            </div>
+
+  					<div class="col widget">
+                <h3 class="widget-title">Contact</h3>
+    						<div class="widget-body">
+    							<p><a href="https://www.agrotic.org"> www.agrotic.org</a>
+                  </p>
+                  <p>
+    								<a href="mailto: agrotic.applications@gmail.com"> agrotic.applications@gmail.com</a>
+    							</p>
+                  <p>
+    								2 Place Pierre Viala, 34060 Montpellier, Batiment 21.
+    							</p>
+    						</div>
+
+  					</div>
+
+  					<div class="col-6 widget">
+  						<h3 class="widget-title">Le Projet</h3>
+  						<div class="widget-body">
+  							<p>Ce site a été développé par des étudiants de l'Ecole Nationale des Sciences Géographiques dans le cadre d'un projet scolaire en collaboration avec le projet ApeX mené par la chaire AgroTIC.</p>
+  							<p></p>
+  						</div>
+              <div class="row">
+                <figure class="col-md-2">
+                  <img src="../images/supagro.png" alt="SupAgro" align="center" width="85em">
+                </figure>
+                <figure class="col-md-2">
+                  <img src="../images/agrotic.png" align="center" alt="AgroTIC" width="100em">
+                </figure>
+                <figure class="col-md-2">
+                  <img src="../images/logo-region-occitanie.jpg" align="center" alt="Région Occitanie" width="80em">
+                </figure>
+                <figure class="col-md-2">
+                  <img src="../images/IFV.gif" align="center" alt="IFV" width="70em">
+                </figure>
+                <figure class="col-md-2">
+                  <img src="../images/logo_ENSG.png" align="center" alt="ENSG" width="60em">
+                </figure>
+                <figure class="col-md-2">
+                  <img src="../images/logo-agriculture-occitanie.jpg" alt="Chambre d'Agriculture d'Occitanie" align="center" width="58em">
+                </figure>
+              </div>
+
+  					</div>
+
+  				</div> <!-- /row of widgets -->
+  			</div>
+  		</div>
+
+  		<div class="footer2">
+        <!-- Second niveau avec des redirections -->
+  			<div class="container">
+
+  					<div class="col-md-6 widget">
+  						<div class="widget-body">
+  							<p class="simplenav">
+  								<a href="../Accueil/accueil.html">Accueil</a> |
+  								<a href="../Accueil/about.html">Le Projet ApeX</a> |
+  								<a href="../Accueil/contact.html">Contact</a>
+  							</p>
+  						</div>
+  					</div>
+
+  					<div class="col-md-6 widget">
+
+  					</div>
+
+  			</div>
+  		</div>
+
+  	</footer>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" type="text/javascript"></script>
+  <script src="jQuery-Plugin-To-Export-Table-Data-To-CSV-File-table2csv/src/table2csv.js" type="text/javascript"></script>
+  <script src="vue_tab.js"></script>
+
+
+  <script type="text/javascript">
+
+  </script>
+
+</div>
+
+</body>
+</html>

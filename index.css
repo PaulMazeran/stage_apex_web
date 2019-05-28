@@ -1,0 +1,147 @@
+
+/************************* CSS DES NAVBAR  ***************************************/
+#img_logo{
+  width : 100px;
+}
+
+#navbarNavDropdown{
+  padding-left: 18px;
+}
+
+.navbar-nav{
+  padding-top: 7px;
+}
+
+/********************* CSS DES BANDEAUX DE PRESENTATION  **************************/
+
+/* Bandeau de présentation de la page commun à toutes les pages*/
+.skyblue{
+  height:300px;
+  width: 100%;
+  background-color: #E7E2E1; /* N'est pas visible sur les pages carto mais visible sur la page accueil */
+  z-index: 1;
+  margin-top: 70px;
+}
+/* Commun pour toutes les écritures des bandeaux de présentations  */
+.h-100 {
+    padding-bottom: 15px;
+}
+
+/* CSS spéfique au bandeau de présentation de accueil.html */
+#head{
+  height: 430px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("images/vignes-au-coucher-du-soleil.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: "Open sans", Helvetica, Arial;
+  font-weight: 300;
+}
+
+/* Ecriture dans la div de présentation de accueil.html*/
+#head_div{
+  display: flex;
+  justify-content: center;
+}
+
+/* CSS spéfique au bandeau de présentation de carto_croissance.html */
+#head_carto_croissance{
+  background-image: url("images/Thomas Crestey - Genevieve Motsch Portraitiste--4-rogned.jpg");
+  background-size:cover;
+  top:0px;
+}
+
+/* CSS spéfique au bandeau de présentation de carto_contrainte.html */
+#head_carto_contrainte{
+  background-image: url("images/Thomas Crestey - Genevieve Motsch Portraitiste--12-rogned.jpg");
+  background-size:cover;
+
+}
+
+/* CSS spéfique au bandeau de présentation de vue_tab.html */
+#head_vue_tab{
+  background-image: url("images/Thomas Crestey - Genevieve Motsch Portraitiste-9967-BW-rogned.jpg");
+  background-size:cover;
+
+}
+
+/* CSS spéfique au bandeau de présentation de contact.html */
+#head_contact{
+  background-image: url("images/page_agrotic_lite-1.jpg");
+  background-size:cover;
+
+}
+
+/* CSS spéfique au bandeau de présentation de about.html */
+#head_about{
+  background-image: url("images/page_agrotic_lite-1.jpg");
+  background-size:cover;
+
+}
+
+/* CSS spéfique au bandeau de présentation de auth.html */
+#head_auth{
+  height: 430px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("images/vignes-au-coucher-du-soleil.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: "Open sans", Helvetica, Arial;
+  font-weight: 300;
+}
+
+/* CSS spéfique au bandeau de présentation de deconnecte.html */
+#head_deconnecte{
+  height: 430px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("images/vignes-au-coucher-du-soleil.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: "Open sans", Helvetica, Arial;
+  font-weight: 300;
+}
+
+
+
+/* CSS DES BOUTONS */
+/* Bouton se déconnecter + Menu */
+.btn{
+  margin-top: 8px;
+  margin-left: 10px;
+}
+
+
+
+/**************  CSS DU FOOTER  ***********************/
+#footer{
+  /* width : 99%; */
+}
+.footer1 {
+    background: #232323;
+    padding: 20px 0 15px 0 ;
+    font-size: 12px;
+    color: #999;
+}
+
+.footer2 {
+    background: #191919;
+    padding: 15px 0;
+    color: #777;
+    font-size: 12px;
+}
+
+/*  Fanny */
+.container-footer {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    padding-bottom: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
