@@ -15,6 +15,7 @@ var user = auth.currentUser ;
 
 
 
+
 const actionCodeSettings = {
   // URL you want to redirect back to. The domain (www.example.com) for this
   // URL must be whitelisted in the Firebase Console.
@@ -34,36 +35,6 @@ auth.onAuthStateChanged(function(user) {
     // Si user connecte
     console.log("logged in (authConf)");
     console.log("user:" ,user);
-
-    //____________________________________
-    // const btnUpdateUser = document.getElementById('btnUpdateUser');
-
-    // btnUpdateUser.addEventListener('click', e => {
-    //   console.log(user);
-  
-    //   // Remise a zero du message d erreur
-    //   // var errorStatus = document.getElementById("errorStatusUpdateUser");
-    //   // errorStatus.innerHTML = "" ;
-  
-  
-    //   user.updateProfile().catch(function(error) {
-    //     var errorCode = error.code;
-    //     var errorMessage = error.message;
-    //     console.log (errorCode + " " + errorMessage);
-  
-    //     if (errorCode == "auth/network-request-failed") {
-    //       console.log("network request failed");
-    //       // Renseignement du message d erreur
-    //       // errorStatus.innerHTML = 'Problème de réseau, vérifiez votre connexion ou réessayez plus tard.';
-    //     }
-  
-    //   }).then(function() {
-    //     // Update user informatons
-    // });
-    // });
-
-    //___________________________________
-    
 
     
 
@@ -105,7 +76,7 @@ auth.onAuthStateChanged(function(user) {
     promise.then(function() {
       console.log(user);
       // Redirection
-      document.location.href="../Authentification/deconnecte.html"
+      document.location.href="../Authentification"
     });;
     // Si erreur
     promise.catch(function(error){
@@ -185,29 +156,5 @@ auth.onAuthStateChanged(function(user) {
 
 
  
- /**
-    *@author Paul Mazeran   
-    * Gestion de la mise à jour des information de l'utilisateur a l ecoute du bouton "Modifier mes informations"
-    *
-  */
-
-  const btnUpdateUser = document.getElementById('btnUpdateUser');
-  
-
-  btnUpdateUser.addEventListener('click', e => {
-    console.log("user in fct",auth.currentUser);
-
-    // Remise a zero du message d erreur
-    // var errorStatus = document.getElementById("errorStatusUpdateUser");
-    // errorStatus.innerHTML = "" ;
-    firebase.auth()
-    .signInWithEmailAndPassword('paul.mazeran@ensg.eu', '04041996')
-    .then(function(userCredential) {
-        userCredential.user.updateEmail('paul-mazeran@orange.fr')
-
-    });
-  });
-
-
 
 

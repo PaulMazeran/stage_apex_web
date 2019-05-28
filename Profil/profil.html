@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../Bootstrap/bootstrap-4.3.1-dist/css/bootstrap.css" >
     <link rel="stylesheet" href="../node_modules/popper.js/dist/popper.min.js" >
     <link rel="stylesheet" href="../Accueil/accueil.css">
+    <link rel="stylsheet" href="profil.css">
 
     <!-- Feuilles de style pour le menu déroulant -->
     <link rel="stylesheet" href="../Bootstrap/bootstrap-3.2.0/css/bootstrap.min.css" >
@@ -81,27 +82,26 @@
 
 
 
-<!-- Barre d'accueil de la page -->
-<header id = "head">
-  <div class="container" id="head_div">
-    <div class="row">
-      <h1> BIENVENUE SUR LE PROJET APEXWEB </h1>
-      <hr class="divider my-4">
-    </div>
-  </div>
-</header>
 
 <!-- Barre pour en savoir plus / WARNINNG :le skyblue n'a pas la même utilité dans les autres pages -->
-<div class="container-fluid text-center skyblue">
-      <br>
-      <br>
-    <p class="lead">Nous vous présentons la première version de notre projet développement intitulé "Projet ApexWeb".</p>
-    <hr class="my-4">
-
-    <p>Le but de ce projet est de produire une plateforme qui permet la visualisation et l'analyse de données sur les vignes.</p>
-    <p> Pour en savoir plus : <a class="btn btn-lg" href="../Accueil/about.html" role="button"> <img src="../images/logoApeX.svg" alt="ApeXweb" width="30px" id="img_logo"> </a></p>
+<div id="formulaire" class="container text-center skyblue">
+        <form>
+                <p>Modifier les informations de votre compte</p>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Adresse email </label>
+                  <input type="txt" class="form-control" id="emailtoupgrade" aria-describedby="emailHelp" placeholder="Entrez votre nouvel email">
+                </div>
+                <p>et / ou </p>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Nom d'utilisateur</label>
+                  <input type="txt" class="form-control" id="usernametoupgrade" aria-describedby="emailHelp" placeholder="Entrez votre nouveau nom d'utilisateur ">
+                </div>
+  
+                <button id="modifier" class="btn btn-primary">Modifier</button>
+              </form>
 
 </div>
+
 
 <!-- Agencement du footer -->
   <footer id="footer" class="top-space black">
@@ -191,6 +191,6 @@
 
 
     <!-- Configuration de l authentification -->
-    <script src="../Authentification/authConfiguration.js"></script>
+    <script src="profil.js"></script>
   </body>
 </html>
