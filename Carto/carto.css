@@ -1,0 +1,102 @@
+
+/* Div qui contient la carte et l'information sur les marqueurs */
+#map_et_info{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 98%;
+  margin-top: 50px;
+}
+
+/* Carte leaflet */
+#mapid{
+  margin-bottom: 20px;
+  height : 600px;
+  z-index : 8;
+}
+
+/***** Div sur les informations */
+/* Div qui contient les informations */
+#infos{
+  border-color: solid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Texte dans la div information*/
+.text-infos {
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  padding-bottom: 0.7em;
+}
+
+/* Uniquement pour carto_contrainte/Css du choix de la date pour diagramme */
+.period{
+  margin-top: 30px;
+  padding-left: 30px;
+  width: 99%;
+}
+
+/* Pour carto_contrainte et carto_croissance/ Css du choix de la date pour le diagramme */
+#menu_diag{
+  justify-content: flex-start;
+  padding-right: 30px;
+}
+
+/* Diagramme Evolution du temps */
+.diag{
+  width: 95%;
+}
+
+/*  CSS de la popup */
+.popup {
+    justify-content: flex-end;
+    border-radius: 10px 10px 10px 10px;
+  }
+
+/* Image du bouton d'information */
+#img_info{
+  width: 30px;
+  height: 30px;
+}
+
+/********************** The Modal (background) *********************/
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+  /* overflow: scroll; */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}

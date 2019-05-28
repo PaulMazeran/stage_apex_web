@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta name="page si pas connecte">
+  <meta charset="utf-8">
+  <title> ApeX web </title>
+  <!-- Feuilles de style -->
+  <link rel="stylesheet" href="../Bootstrap/bootstrap-4.3.1-dist/css/bootstrap.css" >
+  <link rel="stylesheet" href="../index.css">
+
+  <!-- Feuilles de style pour le menu déroulant -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+  <!-- Firebase required -->
+  <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-app.js"></script>
+  <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-auth.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+
+  <!-- js du projet -->
+  <script src="authConfiguration.js"></script>
+
+</head>
+  <body>
+
+    <!-- Navbar-->
+    <!-- <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-light bg-light">
+      <img src="../images/logoApeX.svg" alt="ApeXweb" id="img_logo">
+      <ul class="nav nav-pills nav-fill">
+        <li class="nav-item">
+          <a class="nav-link active" href="../Authentification/auth.html">Se connecter</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../Accueil/about.html">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../Accueil/contact.html">Contact</a>
+        </li>
+
+      </ul>
+    </nav> -->
+
+    <!--  test navbar -->
+    <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-light bg-light">
+    <img src="../images/logoApeX.svg" alt="ApeXweb" id="img_logo">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav nav-pills nav-fill">
+        <li class="nav-item">
+          <a class="nav-link active btn-secondary text-white" href="../Authentification/auth.html">Se connecter</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../Accueil/about.html">Le projet</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../Accueil/contact.html">Contact</a>
+        </li>
+  </ul>
+    </div>
+  </nav>
+
+    <!-- Mots sur Deconnexion -->
+    <div class="container-fluid skyblue" id="head_deconnecte">
+        <div class="container h-100">
+          <div class="row h-100 align-items-center justify-content-center text-center">
+            <div class="col-lg-10 align-self-middle">
+              <h1 class="text-black font-weight-bold">Vous êtes déconnecté du projet</h1>
+              <h1 class="text-black font-weight-bold">ApexWeb</h1>
+              <hr class="divider my-4">
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- Bloc Infos -->
+    <div class="jumbotron">
+      <p class="lead">Pour utiliser l'application, veuillez vous connecter.</p>
+    </div>
+
+    <!-- Bouton navigation -->
+    <!-- <div class="container-fluid nav2">
+      <div class="row" id="test">
+
+        <div class="col-md-4 nav1">
+          <a class="btn btn-lg btn-block img1" href="../Authentification/auth.html" role="button">
+            <p class="text">Se connecter</p>
+          </a>
+        </div>
+
+        <div class="col-md-4 nav1">
+          <a class="btn btn-lg btn-block img2" href="../Accueil/about.html" role="button">
+            <p class="text">A propos</p>
+            </a>
+        </div>
+
+        <div class="col-md-4 nav1">
+          <a class="btn btn-lg btn-block img4" href="../Accueil/contact.html" role="button">
+            <p class="text">Contacts</p>
+            </a>
+        </div>
+
+      </div>
+
+    </div> -->
+
+      <footer id="footer" class="top-space black">
+
+          <div class="footer1">
+            <div class="container ">
+              <div class="row">
+                <div class="col widget">
+                      <img src="../images/logoApeX.svg" alt="ApeXweb" width="130em">
+
+                </div>
+
+                <div class="col widget">
+                    <h3 class="widget-title">Contact</h3>
+                    <div class="widget-body">
+                      <p>https://www.agrotic.org<br>
+                        <a href="mailto: agrotic.applications@gmail.com."> agrotic.applications@gmail.com</a>
+                      </p>
+                      <p>
+                        2 Place Pierre Viala, 34060 Montpellier, Batiment 21.
+                      </p>
+                    </div>
+
+                </div>
+
+                <div class="col-6 widget">
+                  <h3 class="widget-title">Le Projet</h3>
+                  <div class="widget-body">
+                    <p>Ce site a été développé par des étudiants de l'Ecole Nationale des Sciences Géographiques dans le cadre d'un projet scolaire en collaboration avec le projet ApeX mené par la chaire AgroTic.</p>
+                    <p></p>
+                  </div>
+                </div>
+
+              </div> <!-- /row of widgets -->
+            </div>
+          </div>
+
+          <div class="footer2">
+            <div class="container">
+
+                <div class="col-md-6 widget">
+                  <div class="widget-body">
+                    <p class="simplenav">
+                      <a href="../Accueil/accueil.html">Accueil</a> |
+                      <a href="../Accueil/about.html">Le projet</a> |
+                      <a href="../Accueil/contact.html">Contact</a>
+                    </p>
+                  </div>
+                </div>
+
+                <div class="col-md-6 widget">
+
+                </div>
+
+            </div>
+          </div>
+
+        </footer>
+  </body>
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+  <head>
+    <meta name="page d'accueil">
+    <meta charset="utf-8">
+    <title> ApexWeb </title>
+
+    <!-- Feuilles de style -->
+    <link rel="stylesheet" href="../Bootstrap/bootstrap-4.3.1-dist/css/bootstrap.css" >
+    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="../Accueil/accueil.css">
+
+    <!-- Feuilles de style pour le menu déroulant -->
+    <link rel="stylesheet" href="../Bootstrap/bootstrap-3.2.0/css/bootstrap.min.css" >
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+    <!-- Firebase required -->
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-app.js"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css"/>
+
+    <!-- Configuration de l authentification -->
+    <script src="../Authentification/authConfiguration.js"></script>
+  </head>
+<body>
+
+  <!-- Barre de menu -->
+  <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-light bg-light">
+    <img src="../images/logoApeX.svg" alt="ApeXweb" id="img_logo">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a id="btnAccueilLogIn" class="nav-link" href="../Authentification/auth.html">Se connecter<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../Accueil/about.html">Le projet</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../Accueil/contact.html">Contact</a>
+        </li>
+        <div id="menuDeroulant" class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton" type="button" name="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Menu </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="../Carto/carto_croissance.html"> Croissance de la vigne</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="../Carto/carto_contrainte.html"> Contrainte hydrique </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item"  href="../Tab/vue_tab.html"> Vue tabulaire / Export</a>
+            </div>
+        </div>
+      </ul>
+    </div>
+    <!-- Bouton deconnexion -->
+    <ul id="Deconnexion" class="nav nav-pills nav-fill my-lg-0 invisible">
+      <li class="nav-item">
+        <button id="btnLogout" class="btn btn-primary">Se déconnecter</button>
+      </li>
+    </ul>
+  </nav>
+
+
+  <!-- Titre page -->
+  <div class="container-fluid skyblue" id="head_about">
+
+      <div class="container h-100">
+        <div class="row h-100 align-items-center justify-content-center text-center">
+          <div class="col-lg-10 align-self-middle">
+            <h1 class="text-uppercase text-black font-weight-bold">Le projet ApexWeb </h1>
+            <hr class="divider my-4">
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <!-- Texte -->
+  <div class="text-justify container" style="margin-bottom:2em; margin-top:2em">
+    
+    <div class="container">
+      <h2> Objectifs du projet ApeX </h2>
+
+      <p> Le projet ApeX a pour objectif le développement d'outils numériques de suivi de la croissance végétative de la vigne et de la contrainte hydrique qui peut y être associée.
+      Il repose sur la conception d'une application mobile &laquo; ApeX mobile &raquo;, utilisée sur le terrain pour renseigner des données sur l'état des plants de vigne, et sur le développement d'une plateforme web &laquo; ApeX web &raquo; de visualisation et représentation des données afin qu'elles soient facilement interprétables, compréhensibles et utilisables.
+      La méthode utilisée, dite des apexs, est préconisée par la Chambre d’Agriculture de l’Hérault et repose sur l’observation visuelle des extrémités des rameaux de vigne pendant leur croissance. </p>
+    </div>
+
+
+    <div class="container">
+
+      <h4> L'application ApeX mobile </h4>
+
+      <p> Cette application a été développée par l'équipe AgroTIC de Montpellier SupAgro avec le soutien de la région Occitanie dans le cadre de travaux menés depuis plusieurs années en partenariat avec l'Institut Français de la Vigne et du vin et la chambre d'agriculture de l'Hérault.
+      Elle a été développée dans le cadre de travaux de recherche et est actuellement en développement et en phase de tests auprès d'une vingtaine d'utilisateurs.
+      Elle guide les acteurs du monde agricole (agriculteurs, conseillers, ...) sur la mise en oeuvre de la méthode des apexs et leur permet de saisir des observations sur leurs parcelles.
+      Un ensemble d'observations réalisées à une date d sur une parcelle est appelée une session, elle regroupe en moyenne 50 observations. </p>
+    </div>
+
+    <div class="container">
+      <h4> La plateforme ApeX web </h4>
+
+      <p> Une première version de la plateforme &laquo; ApeX web &raquo; a été dévelopée par quatres élèves de l'Ecole Nationale des Sciences Géographiques dans le cadre d'un projet de trois mois encadré par Léo PICHON et Guilhem BRUNEL de la chaire AgroTIC.
+      Elle permet d'afficher et de représenter les données issues des différentes sessions réalisées par les utilisateurs sur l'application mobile et de les analyser spatialement et temporellement.</p>
+    </div>
+
+    <hr class="my-4">
+
+    <div class="container">
+      <h2> Comprendre la méthode des apexs </h2>
+
+      <p>Qualifier instantanément l’état de croissance végétative des vignes ou caractériser la dynamique de croissance d’une parcelle sont des notions intéressantes à développer au vignoble.
+      Les utilisations de ces informations sont potentiellement nombreuses pour la conduite agronomique des vignobles.
+      Pour ce faire, une méthode simple basée sur l’observation des apexs est développée par les principaux acteurs des organisations techniques professionnelles du pourtour méditerranéen depuis plusieures années (Institut Français de la Vigne et du Vin, Chambres d’Agriculture, Syndicat des Vignerons des Côtes-du-Rhône).</p>
+
+      <p>Le principe repose sur la définition d’une typologie physionomique des apexs en 3 catégories : les rameaux sont dits en « pleine croissance » lorsque les deux dernières feuilles étalées repliées le long de l’axe ne recouvrent pas l’apex (codé 1) ; la croissance est considérée comme « ralentie » lorsque les deux dernières feuilles étalées recouvrent l’apex (codé 0,5) ; la croissance est dite « arrêtée » lorsque l’apex est sec ou a chu (codé 0). Il convient de rajouter une catégorie particulière concernant les rameaux écimés qui ne peuvent être pris en considération dans la qualification du niveau de croissance de la vigne.
+      </p>
+
+      <div class="images">
+        <center>
+          <figure>
+            <img src="../images/pleine_croissance.PNG" align="center" alt ="pleine croissance">
+            <figcaption>Pleine croissance</figcaption>
+          </figure>
+
+          <figure>
+            <img src="../images/croissance_ralentie.PNG" align="center" alt ="pleine croissance">
+            <figcaption>Croissance ralentie</figcaption>
+          </figure>
+
+          <figure>
+            <img src="../images/croissance_arretee.PNG" align="center" alt ="pleine croissance">
+            <figcaption>Croissance arretée</figcaption>
+          </figure>
+
+        </center>
+      </div>
+
+      <h5> Méthodologie </h5>
+
+      <p>La méthode consiste à observer cinquante apexs minimum pour qualifier un niveau moyen de croissance.
+      Utilisée de façon régulière, l’application propose une caractérisation de la dynamique de croissance.
+      Il est conseillé de procéder à des observations hebdomadaires pour limiter notamment les problèmes d’interprétation dus aux écimages.
+      Des règles techniques d’interprétations associées à ces relevés permettent de proposer en complément un diagnostic agronomique de la situation viticole.</p>
+    </div>
+
+    <hr class="my-4">
+
+    <div class="container">
+      <h2>Règles d’interprétation de la contrainte hydrique (IFV)</h2>
+
+      <p>L’institut Français de la Vigne et du Vin a acquis une base de données mettant en relation les observations des apexs avec des niveaux de contrainte hydrique, la croissance des rameaux étant la première fonction physiologique à être affectée par cette contrainte chez la vigne.</p>
+
+      <p>Quatre niveaux de contrainte hydrique sont proposés avec l’interprétation des apexs :
+        <ul>
+          <li>Niveau 0 : absence de contrainte hydrique</li>
+          <li>Niveau 1 : contrainte hydrique modérée</li>
+          <li>Niveau 2 : contrainte hydrique forte</li>
+          <li>Niveau 3 : contrainte hydrique sévère</li>
+        </ul>
+      </p>
+
+      <p>Ces gammes d’interprétation en cours de développement s’entendent pour des observations de la végétation en période végétative, de la floraison à la mi-maturation, les conditions de sénescence naturelle grevant l’interprétation des relations par la suite.</p>
+
+      <h5>Echantillonnage :</h5>
+      <p>La base de données a été acquise en observant 5 apexs par cep sur des placettes de 10 ceps contigus identifiés à la parcelle.
+      Les apexs observés sont ceux correspondant aux rameaux dominants de la végétation. Au vignoble, l’expérience a montré l’extension possible de la méthode à l’observation de parcelles entières en échantillonnant une cinquantaine d’apexs sur différents ceps ; il convient alors de réaliser les observations sur un même rang afin de limiter les erreurs d’interprétation dues à l’hétérogénéité de la parcelle.</p>
+    </div>
+
+    <hr class="my-4">
+
+  </div>
+
+
+
+
+
+
+
+<footer id="footer" class="top-space black">
+
+    <div class="footer1">
+      <div class="container-footer">
+        <div class="row">
+          <div class="col widget">
+              <figure>
+                <img src="../images/logoApeX.svg" alt="ApeXweb" align="center" width="200em">
+              </figure>
+          </div>
+
+          <div class="col widget">
+              <h3 class="widget-title">Contact</h3>
+              <div class="widget-body">
+                <p><a href="https://www.agrotic.org"> www.agrotic.org</a>
+                </p>
+                <p>
+                  <a href="mailto: agrotic.applications@gmail.com"> agrotic.applications@gmail.com</a>
+                </p>
+                <p>
+                  2 Place Pierre Viala, 34060 Montpellier, Batiment 21.
+                </p>
+              </div>
+
+          </div>
+
+          <div class="col-6 widget">
+            <h3 class="widget-title">Le Projet</h3>
+            <div class="widget-body">
+              <p>Ce site a été développé par des étudiants de l'Ecole Nationale des Sciences Géographiques dans le cadre d'un projet scolaire en collaboration avec le projet ApeX mené par la chaire AgroTIC.</p>
+              <p></p>
+            </div>
+            <div class="row">
+              <figure class="col-md-2">
+                <img src="../images/supagro.png" alt="SupAgro" align="center" width="85em">
+              </figure>
+              <figure class="col-md-2">
+                <img src="../images/agrotic.png" align="center" alt="AgroTIC" width="100em">
+              </figure>
+              <figure class="col-md-2">
+                <img src="../images/logo-region-occitanie.jpg" align="center" alt="Région Occitanie" width="80em">
+              </figure>
+              <figure class="col-md-2">
+                <img src="../images/IFV.gif" align="center" alt="IFV" width="70em">
+              </figure>
+              <figure class="col-md-2">
+                <img src="../images/logo_ENSG.png" align="center" alt="ENSG" width="60em">
+              </figure>
+              <figure class="col-md-2">
+                <img src="../images/logo-agriculture-occitanie.jpg" alt="Chambre d'Agriculture d'Occitanie" align="center" width="58em">
+              </figure>
+            </div>
+
+          </div>
+
+        </div> <!-- /row of widgets -->
+      </div>
+    </div>
+
+    <div class="footer2">
+      <div class="container">
+
+          <div class="col-md-6 widget">
+            <div class="widget-body">
+              <p class="simplenav">
+                <a href="../Accueil/accueil.html">Accueil</a> |
+                <a href="../Accueil/about.html">Le Projet ApeX</a> |
+                <a href="../Accueil/contact.html">Contact</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-6 widget">
+
+          </div>
+
+      </div>
+    </div>
+
+  </footer>
+</body>
+</html>

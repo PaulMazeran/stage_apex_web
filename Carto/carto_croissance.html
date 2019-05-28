@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+  <head>
+    <meta name="cartographie de la contrainte hydrique">
+    <meta charset="utf-8">
+    <title> ApexWeb </title>
+
+    <!-- Feuilles de style -->
+    <link rel="stylesheet" href="../Bootstrap/bootstrap-4.3.1-dist/css/bootstrap.css" >
+    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="../Carto/carto.css">
+
+    <!-- Feuilles de style pour le menu déroulant -->
+    <link rel="stylesheet" href="../Bootstrap/bootstrap-3.2.0/css/bootstrap.min.css" >
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+    <!-- Firebase required -->
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-app.js"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+
+    <!-- Configuration de l authentification -->
+    <script src="../Authentification/authConfiguration.js"></script>
+
+   <!-- Ligne de codes pour ajouter Chart.js -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+
+    <!-- Lignes de codes pour Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg==" crossorigin=""></script>
+
+    <!-- ligne de codes pour écrire les équations correctement :Mathjax -->
+    <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  </head>
+<body>
+
+<div id="ifLoggedIn">
+
+  <!-- Barre de navigation -->
+<nav class="navbar navbar-fixed-top navbar-expand-lg navbar-light bg-light">
+  <img src="../images/logoApeX.svg" alt="ApeXweb" id="img_logo"> <!-- logo -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button> <!-- Bouton qui n'apparait quand la navbar est trop petite -->
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="../Accueil/accueil.html">Accueil <span class="sr-only">(current)</span></a>
+
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../Accueil/about.html">Le projet</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../Accueil/contact.html">Contact</a>
+      </li>
+      <div id="menuDeroulant" class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton" type="button" name="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Menu </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="../Carto/carto_croissance.html"> Croissance de la vigne</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="../Carto/carto_contrainte.html"> Contrainte hydrique </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item"  href="../Tab/vue_tab.html"> Vue tabulaire / Export</a>
+          </div>
+      </div>
+
+    </ul>
+  </div>
+  <!-- Bouton deconnexion -->
+  <ul id="Deconnexion" class="nav nav-pills nav-fill my-lg-0 invisible">
+    <li class="nav-item">
+      <button id="btnLogout" class="btn btn-primary">Se déconnecter</button>
+    </li>
+  </ul>
+</nav>
+
+
+<!-- Barre d'accueil de la page -->
+  <div class="container-fluid skyblue" id="head_carto_croissance">
+      <div class="container h-100">
+        <div class="row h-100 align-items-center justify-content-center text-center">
+          <div class="col-lg-10 align-self-middle">
+            <h1 class="text-uppercase text-black font-weight-bold"> Croissance de la vigne </h1>
+            <hr class="divider my-4">
+          </div>
+        </div>
+      </div>
+  </div>
+
+
+ <!-- ********** PARTIE CARTE ET INFOS *************** -->
+
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+  <div id="map_et_info" class="row"> <!-- grande div contenant la carte et les informations liées à la carte (camembert etc) -->
+
+    <!-- Carte -->
+    <div  id="mapid" class="col-lg-8">  </div>
+
+    <!-- Informations -->
+    <div id="infos" class="col-lg-4 rounded">
+      <!-- Mise en page Bootstrap -->
+      <div class="card border-info text-white bg-secondary mb-3 mx-auto">
+        <!-- Affichage des données liées à la sélection (onClick) -->
+        <!-- header -->
+        <div id = "titre_encart_info" class="card-header">
+          <h3><strong>Informations sur la parcelle</strong></h3>
+        </div>
+
+        <!-- body -->
+        <div class="text-infos">
+          <p id =au_debut> <em>Cliquez sur un marqueur pour voir apparaitre ici des informations sur la parcelle</em> </p>
+
+          <div id = inf>
+            <div class="row">
+              <!-- Affichage de l'indice de croissance et du nombre d'Apex -->
+              <div class="col-sm-10">
+                <p><strong>Indice de croissance : <span id="inf_moy"> --- </span></strong></p>
+                <h6 style="text-align:center"><strong>Nombre d'apexs</strong></h6>
+                <table>
+                  <tr>
+                    <td>Pleine croissance </td> <td>: <span id="inf_nb_P"> --- </span></td>
+                  </tr>
+                  <tr>
+                    <td>Croissance ralentie </td> <td>: <span id="inf_nb_R"> --- </span></td>
+                  </tr>
+                  <tr>
+                    <td>Croissance arrêtée </td> <td>: <span id="inf_nb_C"> --- </span></td>
+                  </tr>
+                </table>
+                <br>
+              </div>
+
+              <div class="col-sm-2">
+                <!-- OUverture du popup pour les infos lié à la carto croissance -->
+                <!-- Trigger/Open The Modal -->
+                <button value="Open Modal" class="popup" id="myBtn"><img src="../images/Information.png" alt="info" id="img_info"/> </button>
+              </div>
+
+            </div>
+            <div id="pieDiag">
+              <!-- Création de l'objet 'canvas' qui référence l'affichage du graphique défini en javascript -->
+              <canvas id="myPieChart" width="200" height="200"><p>Répartition des observations</p></canvas><p></p>
+            </div>
+          </div>
+          <!-- Liste déroulante permettant de choisir une date (unique) d'affichage des données sur la même parcelle -->
+          <div class="input-group mb-3" id = "form_date" style = 'display:none'>
+              <div class="input-group-text">
+              <label  class="input-group-text"  for='dates' >Choisissez une autre date </label>
+              <select class="custom-select" id='dates_select' class="rounded" ><option>------</option></select>
+              </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+<!-- Popup qui doit être appelée hors d'une div -->
+<!-- En lien avec le bouton open Modal  -->
+  <!-- The Modal -->
+  <div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+              <h4>$$ Indice ~de ~croissance $$</h4>
+          <p> L'indice de croissance correspond à une moyenne. Elle est calculée de cette manière :  </p>
+              <p> $$ Indice ~de ~croissance = {Nombres ~d'Apex ~C ~* ~0+ Nombres ~d'Apex ~R ~* ~0.5+ Nombres ~d'Apex ~P ~* ~1\over Nombres ~d'Apex ~total } $$ </p>
+              <p>$$ Avec: $$</p>
+              <p>$$ Nombres ~d'Apex ~C ~: ~Nombres ~d'Apex ~en ~croissance ~arrêtée $$</p>
+              <p>$$ Nombres ~d'Apex ~R ~: ~Nombres ~d'Apex ~en ~croissance ~modérée $$</p>
+              <p>$$ Nombres ~d'Apex ~P ~: ~Nombres ~d'Apex ~en ~pleine ~croissance  $$</p>
+              <br>
+          <p>Pour plus d'informations sur la méthode des Apexs, une fiche récapitulative est à votre disposition dans l'onglet <a href="../Accueil/about.html">Le projet</a></p>
+    </div>
+
+  </div>
+
+
+<!-- ======================================= -->
+<!-- DIAGRAMME TEMPOREL & MENU CORRESPONDANT -->
+<!-- ======================================= -->
+  <div id="menu_diag">
+    <strong>Choix de la période d'affichage</strong>
+    <form id="form_diag">
+      <!-- Menu déroulant pour sélectionner la première date de visualisation : intitulé 'Date initiale' sélectionné par défaut mais non cliquable -->
+      <select name="firstDate" id="selectDateMin"><option selected disabled>Date initiale</option></select>
+      <!-- Menu déroulant pour sélectionner la dernière date de visualisation : intitulé 'Date finale' sélectionné par défaut mais non cliquable -->
+      <select name="lastDate" id="selectDateMax"><option selected disabled>Date finale</option></select>
+    </form>
+  </div>
+
+  <div class="row diag">
+    <!-- Création de l'objet 'canvas' qui référence l'affichage du graphique défini en javascript -->
+    <canvas id="myChart" width="400" height="100"><p>Graphique de suivi temporel de la croissance des vignes</p></canvas>
+  </div>
+
+<!-- Appel du js pour l'affichage des données -->
+  <script type="text/javascript" src="carto_croissance.js"></script>
+
+<!-- Footer -->
+  <footer id="footer" class="top-space black">
+
+      <div class="footer1">
+        <div class="container-footer">
+          <div class="row">
+            <div class="col widget">
+                <figure>
+                  <img src="../images/logoApeX.svg" alt="ApeXweb" align="center" width="200em">
+                </figure>
+            </div>
+
+            <div class="col widget">
+                <h3 class="widget-title">Contact</h3>
+                <div class="widget-body">
+                  <p><a href="https://www.agrotic.org"> www.agrotic.org</a>
+                  </p>
+                  <p>
+                    <a href="mailto: agrotic.applications@gmail.com"> agrotic.applications@gmail.com</a>
+                  </p>
+                  <p>
+                    2 Place Pierre Viala, 34060 Montpellier, Batiment 21.
+                  </p>
+                </div>
+
+            </div>
+
+            <div class="col-6 widget">
+              <h3 class="widget-title">Le Projet</h3>
+              <div class="widget-body">
+                <p>Ce site a été développé par des étudiants de l'Ecole Nationale des Sciences Géographiques dans le cadre d'un projet scolaire en collaboration avec le projet ApeX mené par la chaire AgroTIC.</p>
+                <p></p>
+              </div>
+              <div class="row">
+                <figure class="col-md-2">
+                  <img src="../images/supagro.png" alt="SupAgro" align="center" width="85em">
+                </figure>
+                <figure class="col-md-2">
+                  <img src="../images/agrotic.png" align="center" alt="AgroTIC" width="100em">
+                </figure>
+                <figure class="col-md-2">
+                  <img src="../images/logo-region-occitanie.jpg" align="center" alt="Région Occitanie" width="80em">
+                </figure>
+                <figure class="col-md-2">
+                  <img src="../images/IFV.gif" align="center" alt="IFV" width="70em">
+                </figure>
+                <figure class="col-md-2">
+                  <img src="../images/logo_ENSG.png" align="center" alt="ENSG" width="60em">
+                </figure>
+                <figure class="col-md-2">
+                  <img src="../images/logo-agriculture-occitanie.jpg" alt="Chambre d'Agriculture d'Occitanie" align="center" width="58em">
+                </figure>
+              </div>
+
+            </div>
+
+          </div> <!-- /row of widgets -->
+        </div>
+      </div>
+
+      <div class="footer2">
+        <div class="container">
+
+            <div class="col-md-6 widget">
+              <div class="widget-body">
+                <p class="simplenav">
+                  <a href="../Accueil/accueil.html">Accueil</a> |
+                  <a href="../Accueil/about.html">Le Projet ApeX</a> |
+                  <a href="../Accueil/contact.html">Contact</a>
+                </p>
+              </div>
+            </div>
+
+            <div class="col-md-6 widget">
+
+            </div>
+
+        </div>
+      </div>
+
+    </footer>
+
+
+
+</div>
+</body>
+</html>

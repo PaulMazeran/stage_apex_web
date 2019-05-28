@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <meta name="page authentification">
+      <meta charset="utf-8">
+      <title> Bienvenue </title>
+
+      <!-- Feuilles de styles -->
+      <link rel="stylesheet" href="../Bootstrap/bootstrap-4.3.1-dist/css/bootstrap.css" >
+      <link rel="stylesheet" href="../index.css">
+      <link rel="stylesheet" href="../Authentification/auth.css">
+
+      <!-- Feuilles de style pour le menu déroulant -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+      <!-- Firebase required -->
+      <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-app.js"></script>
+      <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-auth.js"></script>
+      <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+
+
+    </head>
+    <body>
+
+      <!-- Navbar -->
+      <!-- <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-light bg-light">
+        <img src="../images/logoApeX.svg" alt="ApeXweb" id="img_logo">
+        <ul class="nav nav-pills nav-fill">
+          <li class="nav-item">
+            <a class="nav-link" href="../Accueil/about.html">Le projet<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../Accueil/contact.html">Contact</a>
+          </li>
+          <li class="nav-item dropdown">
+        </ul>
+      </nav> -->
+
+      <!--  test navbar -->
+      <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-light bg-light">
+      <img src="../images/logoApeX.svg" alt="ApeXweb" id="img_logo">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav nav-pills nav-fill">
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="../Accueil/accueil.html">Accueil <span class="sr-only">(current)</span></a>
+
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link" href="../Accueil/about.html">Le projet</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../Accueil/contact.html">Contact</a>
+          </li>
+    </ul>
+      </div>
+    </nav>
+
+
+      <!-- Mot Bienvenue ApeX -->
+      <div class="container-fluid skyblue" id="head_auth">
+
+          <div class="container h-100">
+            <div class="row h-100 align-items-center justify-content-center text-center">
+              <div class="col-lg-10 align-self-middle">
+                <h1 class="text-uppercase text-black font-weight-bold"> Bienvenue sur le projet ApexWeb </h1>
+                <hr class="divider my-4">
+              </div>
+            </div>
+          </div>
+      </div>
+
+      <!-- Bloc Email -->
+      <div id="container" class="container-fluid" >
+
+        <div class="jumbotron">
+          <div class="row">
+            <div id="mail" class="form-group col-md-6">
+              <label class="">Pour vous authentifier, veuillez renseigner votre email : </label>
+              <div class="form-inline my-2 my-lg-0">
+                <input id = "txtEmail" class="form-control mr-sm-2" type="email" placeholder="apex@email.fr" aria-label="Search">
+                <button id="btnValidEmail" class="btn btn-dark my-2 my-sm-0">Rechercher</button>
+              </div>
+            </div>
+
+            <div id="UnknownUser" class="col-md-6 invisible">
+              <p class="font-weight-bold" style="color:red">/!\ Erreur /!\</p>
+              <p>Vous n'êtes pas connu dans la Base de Données, il faut avoir utilisé l'application Apex mobile pour pouvoir se connecter.</p>
+            </div>
+
+          </div>
+          <div id="infos" class="row invisible">
+            <p>Si vous utilisez ApeXweb pour la première fois, suivez "Première connexion", sinon connectez-vous via votre mot de passe ou en recevant un lien par mail.</p>
+          </div>
+        </div>
+
+        <!-- Block connexion -->
+        <div id="connexionBlock" class="row mb-auto mx-auto invisible">
+
+          <!-- Premiere Connexion -->
+          <div id="FirstConnexion" class="col-md-6">
+            <div class="logBlock ">
+              <h2 style="text-align:center">Première connexion</h2>
+              <hr class="my-4">
+
+              <p>Choisissez votre mot de passe : </p>
+              <div class="form-inline my-2 my-lg-0">
+                <input id="txtFirstMdp" class="form-control mr-sm-2" type="password" placeholder="******">
+                <span id="spinnerSignUp" class="spinner-border spinner-border-sm text-primary invisible" role="status"></span>
+                <button id="btnSignUp" class="btn btn-dark my-2 my-sm-0">S'inscrire</button>
+                <small id="emailHelp" class="form-text text-muted">Le mot de passe doit contenir au moins 6 caractères.</small>
+
+                <small id="errorStatusSignUp" class="form-text errorStatus"></small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Connexion courante -->
+          <div id="Connexion" class="col-md-6">
+            <div class="logBlock">
+              <h2 style="text-align:center">Se connecter</h2>
+              <hr class="my-4">
+
+              <!-- Par mail / Sans mot de passe -->
+              <h4>Sans mot de passe</h4>
+              <p>Recevez un lien par mail pour vous connecter : </p>
+              <div class="form-inline my-2 my-lg-0">
+                <span id="spinnerMail" class="spinner-border spinner-border-sm text-primary invisible" role="status"></span>
+                <button id="btnLoginByMail" class="btn btn-dark my-2 my-sm-0">Recevoir par mail</button>
+
+                <small id="errorStatusMail" class="form-text errorStatus"></small>
+              </div>
+
+
+              <hr class="my-4">
+
+              <!--Reinitialisation du mot de passe -->
+              <h4>Reinitialisation du mot de passe</h4>
+              <p>Recevez un lien par mail reinitialisation du mot de passe : </p>
+              <div class="form-inline my-2 my-lg-0">
+                <span id="spinnerResetPassword" class="spinner-border spinner-border-sm text-primary invisible" role="status"></span>
+                <button id="btnResetPassword" class="btn btn-dark my-2 my-sm-0">Reinitialiser le mot de passe</button>
+
+                <small id="errorStatusResetPassword" class="form-text errorStatus"></small>
+              </div>
+
+
+              <hr class="my-4">
+
+
+              <!-- Avec mot de passe -->
+              <h4>Avec mot de passe</h4>
+              <p>Entrer votre mot de passe :</p>
+              <div class="form-inline my-2 my-lg-0">
+                <input id = "txtMdp" class="form-control mr-sm-2" type="password" placeholder="******">
+                <span id="spinnerLogIn" class="spinner-border spinner-border-sm text-primary invisible" role="status"></span>
+                <button id="btnLogin" class="btn btn-dark my-2 my-sm-0">Se connecter</button>
+
+                <small id="errorStatusLogIn" class="form-text errorStatus"></small>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <footer id="footer" class="top-space black">
+
+          <div class="footer1">
+            <div class="container ">
+              <div class="row">
+                <div class="col widget">
+                      <img src="../images/logoApeX.svg" alt="ApeXweb" width="130em">
+
+                </div>
+
+                <div class="col widget">
+                    <h3 class="widget-title">Contact</h3>
+                    <div class="widget-body">
+                      <p>https://www.agrotic.org<br>
+                        <a href="mailto: agrotic.applications@gmail.com."> agrotic.applications@gmail.com</a>
+                      </p>
+                      <p>
+                        2 Place Pierre Viala, 34060 Montpellier, Batiment 21.
+                      </p>
+                    </div>
+
+                </div>
+
+                <div class="col-6 widget">
+                  <h3 class="widget-title">Le Projet</h3>
+                  <div class="widget-body">
+                    <p>Ce site a été développé par des étudiants de l'Ecole Nationale des Sciences Géographiques dans le cadre d'un projet scolaire en collaboration avec le projet ApeX mené par la chaire AgroTic.</p>
+                    <p></p>
+                  </div>
+                </div>
+
+              </div> <!-- /row of widgets -->
+            </div>
+          </div>
+
+          <div class="footer2">
+            <div class="container">
+
+                <div class="col-md-6 widget">
+                  <div class="widget-body">
+                    <p class="simplenav">
+                      <a href="../Accueil/accueil.html">Accueil</a> |
+                      <a href="../Accueil/about.html">Le projet</a> |
+                      <a href="../Accueil/contact.html">Contact</a>
+                    </p>
+                  </div>
+                </div>
+
+                <div class="col-md-6 widget">
+
+                </div>
+
+            </div>
+          </div>
+
+        </footer>
+    <!-- js du projet -->
+    <script src="auth.js"></script>
+    </body>
+  </html>
