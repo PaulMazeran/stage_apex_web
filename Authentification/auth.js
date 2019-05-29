@@ -90,7 +90,7 @@ const actionCodeSettings = {
     }
     else {
       // Verifie si email dans BD Apex
-      test_email_et(email);
+      test_email(email);
     }
   });
 
@@ -310,15 +310,15 @@ const actionCodeSettings = {
     ajax.send(data);
     };
 
+// fonction qui squizze la BDD pour la connexion
+// function test_email_et(email){
 
-function test_email_et(email){
+//   connexionBlock.classList.remove( 'invisible' );
+//   // Affichage div infos connexion
+//   divInfos.classList.remove("invisible") ;
+//   // Masquage div d erreur
+//   divUnknownUser.classList.add('invisible');
 
-  connexionBlock.classList.remove( 'invisible' );
-  // Affichage div infos connexion
-  divInfos.classList.remove("invisible") ;
-  // Masquage div d erreur
-  divUnknownUser.classList.add('invisible');
-
-}
+// }
 
 
