@@ -33,6 +33,7 @@ const config = {
     const emailtoupgrade = document.getElementById('emailtoupgrade');
     const usernametoupgrade = document.getElementById('usernametoupgrade');
     const structuretoupdate = document.getElementById('structuretoupdate');
+    const mdpforupdate = document.getElementById('structuretoupdate');
 
 
     const btnUpdateUser = document.getElementById("modifier");
@@ -40,6 +41,8 @@ const config = {
     var emailtoupgradetxt = "";
     var usernametoupgradetxt = "";
     var structuretoupdatetxt = "";
+    var mdpforupdatetxt = "";
+    var email = "";
 
 
 
@@ -74,6 +77,7 @@ auth.onAuthStateChanged(function(user) {
       // Si user connecte
       console.log("logged in (profil.js)");
       console.log(auth.currentUser.email);
+      email = auth.currentUser.email;
 
 
       btnUpdateUser.addEventListener('click', e =>    {
@@ -81,10 +85,36 @@ auth.onAuthStateChanged(function(user) {
         var emailtoupgradetxt = emailtoupgrade.value;
         var usernametoupgradetxt = usernametoupgrade.value;
         var structuretoupdatetxt = structuretoupdate.value;
+        var structuretoupdatetxt = mdpforupdate.value;
 
  
         if(emailtoupgradetxt=="" && usernametoupgradetxt==""){
             alert("Veuillez remplir au moins un champs à modifier")
+        }
+
+        if(emailtoupgradetxt != ""){
+          console.log(emailtoupgrade);
+        // Remise a zero du message d erreur
+        //     var errorStatus = document.getElementById("errorStatusUpdateUser");
+
+            firebase.auth()
+            //si changement de mdp, plus rien de marche if faut rentrer son mdp en temps reel!!!
+              .signInWithEmailAndPassword(auth.currentUser.email, structuretoupdatetxt)
+              .then(function(userCredential) {
+                userCredential.user.updateEmail(emailtoupgradetxt);
+              });
+//si mauvias mdp : alert
+              var ajax = new XMLHttpRequest();
+              ajax.open('POST', 'profil.php');
+              ajax.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+              ajax.addEventListener('load', function () {
+                console.log(ajax.response);
+    
+              });
+              var data = 'email=' + auth.currentUser.email + '&' + 'emailtoupgradetxt=' + emailtoupgradetxt + '&' + 'usernametoupgradetxt=' + usernametoupgradetxt + '&' + 'structuretoupdatetxt=' + structuretoupdatetxt;
+    
+              ajax.send(data);
+
         }
 
         else{
@@ -98,46 +128,23 @@ auth.onAuthStateChanged(function(user) {
           var data = 'email=' + auth.currentUser.email + '&' + 'emailtoupgradetxt=' + emailtoupgradetxt + '&' + 'usernametoupgradetxt=' + usernametoupgradetxt + '&' + 'structuretoupdatetxt=' + structuretoupdatetxt;
 
           ajax.send(data);
-          if(emailtoupgradetxt != ""){
-            console.log(emailtoupgrade);
-          // Remise a zero du message d erreur
-          //     var errorStatus = document.getElementById("errorStatusUpdateUser");
 
-              firebase.auth()
-              //si changement de mdp, plus rien de marche if faut rentrer son mdp en temps reel!!!
-                .signInWithEmailAndPassword(auth.currentUser.email, '04041996')
-                .then(function(userCredential) {
-                  userCredential.user.updateEmail(emailtoupgradetxt);
-                });
-//gerer la déconnexion
-
-                //   // Log out
-                // const promise = auth.signOut();
-                // // Si succes
-                // promise.then(function() {
-                //   console.log(user);
-                //   // Redirection
-                //   document.location.href="../Authentification"
-                // });;
-                // // Si erreur
-                // promise.catch(function(error){
-                //   // Renseignement des erreurs
-                //   var errorCode = error.code;
-                //   var errorMessage = error.message;
-                //   console.log (errorCode + " " + errorMessage);
-                // });
-                
-
-
-          }
         }
       });
-    }   
+    }
+    
+    
+
+
     else {
       // Si user pas connecte : gestion redirection dans le chargement page
       console.log('not logged in (profil.js)');
+      
     }
 });
+
+
+
 
 
 
